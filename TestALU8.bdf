@@ -23,7 +23,7 @@ applicable agreement for further details.
 	(input)
 	(rect 40 88 208 104)
 	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
-	(text "A[7..0]" (rect 5 0 39 12)(font "Arial" ))
+	(text "A[7..0]" (rect 5 0 38 12)(font "Arial" ))
 	(pt 168 8)
 	(drawing
 		(line (pt 84 12)(pt 109 12))
@@ -39,7 +39,7 @@ applicable agreement for further details.
 	(input)
 	(rect 32 144 200 160)
 	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
-	(text "B[7..0]" (rect 5 0 39 12)(font "Arial" ))
+	(text "B[7..0]" (rect 5 0 38 12)(font "Arial" ))
 	(pt 168 8)
 	(drawing
 		(line (pt 84 12)(pt 109 12))
@@ -55,7 +55,7 @@ applicable agreement for further details.
 	(input)
 	(rect 32 224 200 240)
 	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
-	(text "Op[3..0]" (rect 5 0 46 12)(font "Arial" ))
+	(text "Op[3..0]" (rect 5 0 45 12)(font "Arial" ))
 	(pt 168 8)
 	(drawing
 		(line (pt 84 12)(pt 109 12))
@@ -184,9 +184,15 @@ applicable agreement for further details.
 		(text "Overflow" (rect 150 75 194 87)(font "Arial" ))
 		(line (pt 208 80)(pt 192 80))
 	)
+	(parameter
+		"reg_delay"
+		"1"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
 	(drawing
 		(rectangle (rect 16 16 192 96))
 	)
+	(annotation_block (parameter)(rect 488 64 672 96))
 )
 (connector
 	(pt 488 128)

@@ -72,7 +72,13 @@ applicable agreement for further details.
 		(text "Overflow" (rect 151 75 187 87)(font "Arial" ))
 		(line (pt 208 80)(pt 192 80)(line_width 1))
 	)
+	(parameter
+		"reg_delay"
+		"1"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
 	(drawing
 		(rectangle (rect 16 16 192 96)(line_width 1))
 	)
+	(annotation_block (parameter)(rect 224 -64 324 16))
 )

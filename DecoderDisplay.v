@@ -5,7 +5,8 @@ module DecoderDisplay(clock, Zero, Overflow, Units, Tens, Hundreds, Display1, Di
 	output [7:0] Display1, Display2;
 	
 	reg [6:0] rUnits, rTens;
-	reg wHundreds1, wHundreds2;
+	reg [1:0] rHundreds;
+	reg [7:0] Display1, Display2;
 	
 	wire [6:0] wUnits, wTens;
 	
@@ -14,40 +15,27 @@ module DecoderDisplay(clock, Zero, Overflow, Units, Tens, Hundreds, Display1, Di
 	BCD_to_SevenSegments b1(Units, wUnits);
 	BCD_to_SevenSegments b2(Tens, wTens);
 	
-	assign Display1 = {wHundreds1,rUnits};
-	assign Display2 = {wHundreds2,rTens};
-	assign wUnits = rUnits;
-	assign wTens = rTens;
-	
 	always @(posedge clock) begin
 		if(Zero) begin
 			rUnits <= #(reg_delay) 8'b00000000;
 			rTens <= #(reg_delay) 8'b00000000;
-			wHundreds1 <= #(reg_delay) 1'b0;
-			wHundreds2 <= #(reg_delay) 1'b0;
+			rHundreds <= #(reg_delay) 2'b00;
 		end
 		if(Overflow) begin
 			rUnits <= #(reg_delay) 8'b11000000;
 			rTens <= #(reg_delay) 8'b01000000;
-			wHundreds1 <= #(reg_delay) 1'b0;
-			wHundreds2 <= #(reg_delay) 1'b0;
+			rHundreds <= #(reg_delay) 2'b00;
 		end
-		else begin
-			case (Hundreds)
-				2'b01: wHundreds1 <= #(reg_delay) 1'b1;
-				2'b10: begin
-					wHundreds1 <= #(reg_delay) 1'b1;
-					wHundreds2 <= #(reg_delay) 1'b1;
-				end
-				2'b00: begin
-					wHundreds1 <= #(reg_delay) 1'b0;
-					wHundreds2 <= #(reg_delay) 1'b0;
-				end
-				default: begin
-					wHundreds1 <= #(reg_delay) 1'b0;
-					wHundreds2 <= #(reg_delay) 1'b0;
-				end
-			endcase
-		end
+		case (Hundreds)
+			2'b01: rHundreds <= #(reg_delay) 2'b01;
+			2'b10: rHundreds <= #(reg_delay) 2'b11; 
+			2'b00: rHundreds <= #(reg_delay) 2'b00;
+			default: rHundreds <= #(reg_delay) 2'b00;
+		endcase
+		
+		rUnits <= #(reg_delay) wUnits;
+		rTens <= #(reg_delay) wTens;
+		Display1 <= #(reg_delay) {rHundreds[0],rUnits};
+		Display2 <= #(reg_delay) {rHundreds[1],rTens};
 	end
 endmodule

@@ -5,9 +5,8 @@ module Calculator(clock, Switchs, Enter, Clear, SSegments1, SSegments2, SSegment
 	output [3:0] Leds;
 	
 	reg [7:0] A, B, OUT;
-	reg [3:0] Operation;
-	reg [1:0] state;
-	reg [3:0] Leds = 4'b0001;
+	reg [3:0] Operation, Leds;
+	reg [1:0] state = IDLE;
 	reg [7:0] SSegments1, SSegments2, SSegments3, SSegments4, SSegments5, SSegments6;
 	reg rEnter, rClear;
 	reg [7:0] Temp;
@@ -46,134 +45,96 @@ module Calculator(clock, Switchs, Enter, Clear, SSegments1, SSegments2, SSegment
 				if(rEnter) begin
 					state <= #(reg_delay) WITH_A;
 					rEnter <= #(reg_delay) 1'b0;
-					Leds <= #(reg_delay) 4'b0011;
-					
 					A <= #(reg_delay) Switchs[7:0];
-					SSegments1 <= #(reg_delay) Display1;
-					SSegments2 <= #(reg_delay) Display2;
 				end
 			WITH_A:
 				if(rEnter) begin
 					state <= #(reg_delay) WITH_B;
 					rEnter <= #(reg_delay) 0;
-					Leds <= #(reg_delay) 4'b0111;
-					
 					B <= #(reg_delay) Switchs[7:0];
-					SSegments3 <= #(reg_delay) Display3;
-					SSegments4 <= #(reg_delay) Display4;
 				end
 				else if(rClear) begin
 					state <= #(reg_delay) IDLE;
 					rClear <= #(reg_delay) 0;
-					Leds <= #(reg_delay) 4'b0001;
-					
 					A <= #(reg_delay) 0;
-					SSegments1 <= #(reg_delay) 0;
-					SSegments2 <= #(reg_delay) 0;
 				end
 			WITH_B:
 				if(rEnter) begin
 					state <= #(reg_delay) RESULT;
 					rEnter <= #(reg_delay) 0;
-					Leds <= #(reg_delay) 4'b1111;
-					
 					Operation <= #(reg_delay) Switchs[11:8];
-					SSegments5 <= #(reg_delay) Display5;
-					SSegments6 <= #(reg_delay) Display6;
 				end
 				else if(rClear) begin
 					state <= #(reg_delay) IDLE;
 					rClear <= #(reg_delay) 0;
-					Leds <= #(reg_delay) 4'b0001;
-					
 					A <= #(reg_delay) 0;
 					B <= #(reg_delay) 0;
-					SSegments1 <= #(reg_delay) 0;
-					SSegments2 <= #(reg_delay) 0;
-					SSegments3 <= #(reg_delay) 0;
-					SSegments4 <= #(reg_delay) 0;
 				end
 			RESULT: begin
 				if(rEnter) begin
 					state <= #(reg_delay) WITH_A;
 					rEnter <= #(reg_delay) 0;
-					Leds <= #(reg_delay) 4'b0011;
-					
 					A <= #(reg_delay) wResult;
 					B <= #(reg_delay) 0;
 					Operation <= #(reg_delay) 0;
 					Temp <= #(reg_delay) 0;
-					
-					SSegments1 <= #(reg_delay) Display5;
-					SSegments2 <= #(reg_delay) Display6;
-					SSegments3 <= #(reg_delay) 0;
-					SSegments4 <= #(reg_delay) 0;
-					SSegments5 <= #(reg_delay) 0;
-					SSegments6 <= #(reg_delay) 0;
 				end
 				else if(rClear) begin
 					state <= #(reg_delay) IDLE;
 					rClear <= #(reg_delay) 0;
-					Leds <= #(reg_delay) 4'b0001;
-					
 					A <= #(reg_delay) 0;
 					B <= #(reg_delay) 0;
 					Operation <= #(reg_delay) 0;
 					Temp <= #(reg_delay) 0;
-					
-					SSegments1 <= #(reg_delay) 0;
-					SSegments2 <= #(reg_delay) 0;
-					SSegments3 <= #(reg_delay) 0;
-					SSegments4 <= #(reg_delay) 0;
-					SSegments5 <= #(reg_delay) 0;
-					SSegments6 <= #(reg_delay) 0;
 				end	
 			end	
 			default: begin 
 				state <= #(reg_delay) IDLE;
-				Leds <= #(reg_delay) 4'b0001;
-				
+			end
+		endcase
+	end
+	
+	
+	always @(state) begin
+		case(state)
+			IDLE: begin
 				SSegments1 <= #(reg_delay) 0;
 				SSegments2 <= #(reg_delay) 0;
 				SSegments3 <= #(reg_delay) 0;
 				SSegments4 <= #(reg_delay) 0;
 				SSegments5 <= #(reg_delay) 0;
 				SSegments6 <= #(reg_delay) 0;
+				
+				Leds <= #(reg_delay) 4'b0001;
+			end
+			WITH_A: begin
+				SSegments1 <= #(reg_delay) Display1;
+				SSegments2 <= #(reg_delay) Display2;
+				
+				Leds <= #(reg_delay) 4'b0011;
+			end
+			WITH_B: begin
+				SSegments3 <= #(reg_delay) Display3;
+				SSegments4 <= #(reg_delay) Display4;
+				
+				Leds <= #(reg_delay) 4'b0111;
+			end
+			RESULT: begin
+				SSegments1 <= #(reg_delay) Display5;
+				SSegments2 <= #(reg_delay) Display6;
+				
+				Leds <= #(reg_delay) 4'b1111;
+			end
+			default: begin
+				SSegments1 <= #(reg_delay) 0;
+				SSegments2 <= #(reg_delay) 0;
+				SSegments3 <= #(reg_delay) 0;
+				SSegments4 <= #(reg_delay) 0;
+				SSegments5 <= #(reg_delay) 0;
+				SSegments6 <= #(reg_delay) 0;
+				
+				Leds <= #(reg_delay) 4'b0001;
 			end
 		endcase
 	end
-	
-	/*
-	always @(state) begin
-		if(state == IDLE) begin
-			if(rEnter) begin
-				
-			end
-		end
-		if(state == WITH_A) begin
-			if(rEnter) begin
-				
-			end
-			if(rClear) begin
-				
-			end
-		end
-		if(state == WITH_B) begin
-			if(rEnter) begin
-				
-			end
-			if(rClear) begin
-				
-			end
-		end
-		if(state == RESULT) begin
-			if(rEnter) begin
-				
-			end
-			if(rClear) begin
-				
-			end
-			
-		end
-	end*/
 endmodule

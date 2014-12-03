@@ -1,7 +1,7 @@
-module DecoderDisplay(clock, Zero, Overflow, Units, Tens, Hundreds, Display1, Display2);
-	input Zero, Overflow, clock;
+module DecoderDisplay(state, Zero, Overflow, Units, Tens, Hundreds, Display1, Display2);
+	input Zero, Overflow;
 	input [3:0] Units, Tens;
-	input [1:0] Hundreds;
+	input [1:0] Hundreds, state;
 	output [7:0] Display1, Display2;
 	
 	reg [6:0] rUnits, rTens;
@@ -15,7 +15,7 @@ module DecoderDisplay(clock, Zero, Overflow, Units, Tens, Hundreds, Display1, Di
 	BCD_to_SevenSegments b1(Units, wUnits);
 	BCD_to_SevenSegments b2(Tens, wTens);
 	
-	always @(posedge clock) begin
+	always @(state) begin
 		if(Zero) begin
 			rUnits <= #(reg_delay) 8'b00000000;
 			rTens <= #(reg_delay) 8'b00000000;

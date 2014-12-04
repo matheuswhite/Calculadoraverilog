@@ -8,6 +8,8 @@ module Calculator(clock, Switchs, Enter, Clear, SSegments1, SSegments2, SSegment
 	reg [3:0] Operation, Leds;
 	reg [1:0] state = IDLE;
 	reg [7:0] SSegments1, SSegments2, SSegments3, SSegments4, SSegments5, SSegments6;
+	reg blockEnter = 0;
+	reg blockClear = 0;
 	
 	wire [7:0] wResult;
 	wire wZero, wCarry_out, wOverflow;
@@ -30,40 +32,46 @@ module Calculator(clock, Switchs, Enter, Clear, SSegments1, SSegments2, SSegment
 	DecoderDisplay d2(state, 0, 0, wUnitsB, wTensB, wHundredsB, Display3, Display4);
 	DecoderDisplay d3(state, wZero, wOverflow, wUnitsResult, wTensResult, wHundredsResult, Display5, Display6);
 	
-	always @(posedge Enter, posedge Clear) begin
+	always @(Enter)
+		blockEnter != blockEnter;
+
+	always @(Clear)
+		blockClear != blockClear;
+
+	always @(posedge clock) begin
 		case (state)
 			IDLE:
-			if(Enter) begin
+			if(blockEnter) begin
 				state <= WITH_A;
 				A <= Switchs[7:0];
 			end
 			WITH_A:
-			if(Enter) begin
+			if(blockEnter) begin
 				state <= WITH_B;
 				B <= Switchs[7:0];
 			end
-			else if(Clear) begin
+			else if(blockClear) begin
 				state <= IDLE;
 				A <= 0;
 			end
 			WITH_B:
-			if(Enter) begin
+			if(blockEnter) begin
 				state <= RESULT;
 				Operation <= Switchs[11:8];
 			end
-			else if(Clear) begin
+			else if(blockClear) begin
 				state <= IDLE;
 				A <= 0;
 				B <= 0;
 			end
 			RESULT:
-			if(Enter) begin
+			if(blockEnter) begin
 				state <= WITH_A;
 				A <= wResult;
 				B <= 0;
 				Operation <= 0;
 			end	
-			else if(Clear) begin
+			else if(blockClear) begin
 				state <= IDLE;
 				A <= 0;
 				B <= 0;

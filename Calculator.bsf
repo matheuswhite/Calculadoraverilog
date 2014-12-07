@@ -96,37 +96,11 @@ applicable agreement for further details.
 	(port
 		(pt 224 128)
 		(output)
-		(text "Leds[3..0]" (rect 0 0 40 12)(font "Arial" ))
-		(text "Leds[3..0]" (rect 163 123 203 135)(font "Arial" ))
+		(text "Leds[5..0]" (rect 0 0 40 12)(font "Arial" ))
+		(text "Leds[5..0]" (rect 163 123 203 135)(font "Arial" ))
 		(line (pt 224 128)(pt 208 128)(line_width 3))
 	)
-	(parameter
-		"reg_delay"
-		"1"
-		""
-		(type "PARAMETER_UNSIGNED_BIN")	)
-	(parameter
-		"IDLE"
-		"00"
-		""
-		(type "PARAMETER_UNSIGNED_BIN")	)
-	(parameter
-		"WITH_A"
-		"01"
-		""
-		(type "PARAMETER_UNSIGNED_BIN")	)
-	(parameter
-		"WITH_B"
-		"10"
-		""
-		(type "PARAMETER_UNSIGNED_BIN")	)
-	(parameter
-		"RESULT"
-		"11"
-		""
-		(type "PARAMETER_UNSIGNED_BIN")	)
 	(drawing
 		(rectangle (rect 16 16 208 160)(line_width 1))
 	)
-	(annotation_block (parameter)(rect 240 -64 340 16))
 )

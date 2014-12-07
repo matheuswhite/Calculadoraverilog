@@ -1,5 +1,5 @@
 module Mux2to1(A, B, Sel, S);
-	input A, B, Sel;
+	input A, B, Sel; //A -> 0; B -> 1
 	output S;
 	
 	not n2(Sel_not, Sel);

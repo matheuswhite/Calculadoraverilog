@@ -20,6 +20,6 @@ module ALU1MSB(A, B, Ainvert, Binvert, Carry_in, Operation, Less, Carry_out, Res
 	Mux4to1 m3(Rand, Ror, Rsum, Less, Operation, Result);
 	
 	assign Set = Rsum;
-	
-	OverflowDetection ov1(wA, wB, Rsum, Overflow);
+
+	OverflowDetection ov1(wA, wB, Binvert, Carry_out, Rsum, Overflow);
 endmodule

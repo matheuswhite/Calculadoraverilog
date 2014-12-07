@@ -6,8 +6,6 @@ module ALU8(A, B, Operation, Carry_out, Zero, Result, Overflow);
 	
 	reg [7:0] Result;
 	
-	parameter reg_delay = 1;
-	
 	wire wSet;
 	wire wCarry_out1, wCarry_out2, wCarry_out3, wCarry_out4, wCarry_out5, wCarry_out6, wCarry_out7;
 	wire wZero1, wZero2, wZero3, wZero4, wZero5, wZero6, wZero7, wZero8, wZeroFinal;
@@ -23,14 +21,14 @@ module ALU8(A, B, Operation, Carry_out, Zero, Result, Overflow);
 	ALU1MSB alu8(A[7], B[7], Operation[3], Operation[2], wCarry_out7, Operation[1:0], 0, Carry_out, wZero8, wSet, Overflow);
 	
 	always @(A, B, Operation) begin
-		Result[0] <= #(reg_delay) wZero1;
-		Result[1] <= #(reg_delay) wZero2;
-		Result[2] <= #(reg_delay) wZero3;
-		Result[3] <= #(reg_delay) wZero4;
-		Result[4] <= #(reg_delay) wZero5;
-		Result[5] <= #(reg_delay) wZero6;
-		Result[6] <= #(reg_delay) wZero7;
-		Result[7] <= #(reg_delay) wZero8;
+		Result[0] <=  wZero1;
+		Result[1] <=  wZero2;
+		Result[2] <=  wZero3;
+		Result[3] <=  wZero4;
+		Result[4] <=  wZero5;
+		Result[5] <=  wZero6;
+		Result[6] <=  wZero7;
+		Result[7] <=  wZero8;
 	end
 
 	or(wZeroFinal, wZero1, wZero2, wZero3, wZero4, wZero5, wZero6, wZero7, wZero8);

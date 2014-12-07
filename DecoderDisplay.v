@@ -6,7 +6,7 @@ module DecoderDisplay(state, Zero, Overflow, Units, Tens, Hundreds, Display1, Di
 	
 	reg [6:0] rUnits, rTens;
 	reg [1:0] rHundreds;
-	reg [7:0] Display1, Display2;
+	reg [7:0] Display1 = 8'b0, Display2 = 8'b0;
 	
 	wire [6:0] wUnits, wTens;
 	

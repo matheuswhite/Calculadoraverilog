@@ -21,12 +21,16 @@ module DecoderDisplay(clock, Zero, Overflow, Carry_out, Units, Tens, Hundreds, D
 			rTens  <= 8'b00111111;
 			rHundreds <= 2'b00;
 		end
-		if(Overflow) begin
+		
+		if(Overflow)
 			Leds[0] <= 1'b1;
-		end
-		if(Carry_out) begin
+		else if(Overflow == 0)
+			Leds[0] <= 1'b0;
+		if(Carry_out)
 			Leds[1] <= 1'b1;
-		end
+		else if(Carry_out == 0)
+			Leds[1] <= 1'b0;
+		
 		case (Hundreds)
 			2'b01: rHundreds <= 2'b01;
 			2'b10: rHundreds <= 2'b11; 

@@ -12,7 +12,8 @@ module Calculator(clock, Switchs, Enter, Clear, SSegments1, SSegments2, SSegment
 	`define NONE 'b111
 	
 	reg [7:0] A, B, OUT;
-	reg [5:0] Operation, Leds;
+	reg [3:0] Operation;
+	reg [5:0] Leds;
 	reg [2:0] state = `IDLE;
 	reg [2:0] nextState;
 	reg [7:0] SSegments1, SSegments2, SSegments3, SSegments4, SSegments5, SSegments6;
@@ -126,7 +127,7 @@ module Calculator(clock, Switchs, Enter, Clear, SSegments1, SSegments2, SSegment
 				SSegments4 <= 0;
 				SSegments5 <= 0;
 				SSegments6 <= 0;
-				Leds[3:0] <= 4'b0001;
+				Leds[5:0] <= 4'b000001;
 				
 				state <= `IDLE;
 			end

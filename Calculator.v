@@ -11,14 +11,12 @@ module Calculator(clock, Switchs, Enter, Clear, SSegments1, SSegments2, SSegment
 	`define ENTERPRESSED 'b100
 	`define NONE 'b111
 	
-	reg [7:0] A, B, OUT;
+	reg [7:0] A, B = 8'b0, OUT;
 	reg [3:0] Operation;
 	reg [5:0] Leds;
 	reg [2:0] state = `IDLE;
 	reg [2:0] nextState;
 	reg [7:0] SSegments1, SSegments2, SSegments3, SSegments4, SSegments5, SSegments6;
-	reg blockEnter = 1'b0;
-	reg blockClear = 1'b0;
 	
 	wire [7:0] wResult;
 	wire wZero, wCarry_out, wOverflow;

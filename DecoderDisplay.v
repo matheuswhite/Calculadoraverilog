@@ -4,10 +4,9 @@ module DecoderDisplay(clock, Zero, Overflow, Carry_out, Units, Tens, Hundreds, D
 	input [1:0] Hundreds;
 	output [7:0] Display1, Display2;
 	output [1:0] Leds; //01 Overflow; 10 Carry_out;
-	
-	reg [6:0] rUnits, rTens;
+
 	reg [1:0] rHundreds;
-	reg [7:0] Display1 = 8'b0, Display2 = 8'b0;
+	wire [7:0] Display1, Display2;
 	reg [1:0] Leds;
 	
 	wire [6:0] wUnits, wTens;
@@ -15,13 +14,10 @@ module DecoderDisplay(clock, Zero, Overflow, Carry_out, Units, Tens, Hundreds, D
 	BCD_to_SevenSegments b1(clock, Units, wUnits);
 	BCD_to_SevenSegments b2(clock, Tens, wTens);
 	
+	assign Display1 = {rHundreds[0],wUnits};
+	assign Display2 = {rHundreds[1],wTens};
+	
 	always @(posedge clock) begin
-		if(Zero) begin
-			rUnits <= 8'b00111111;
-			rTens  <= 8'b00111111;
-			rHundreds <= 2'b00;
-		end
-		
 		if(Overflow)
 			Leds[0] <= 1'b1;
 		else if(Overflow == 0)
@@ -37,10 +33,5 @@ module DecoderDisplay(clock, Zero, Overflow, Carry_out, Units, Tens, Hundreds, D
 			2'b00: rHundreds <= 2'b00;
 			default: rHundreds <= 2'b00;
 		endcase
-		
-		rUnits <= wUnits;
-		rTens <= wTens;
-		Display1 <= {rHundreds[0],rUnits};
-		Display2 <= {rHundreds[1],rTens};
 	end
 endmodule

@@ -85,7 +85,7 @@ applicable agreement for further details.
 )
 (pin
 	(output)
-	(rect 1024 384 1200 400)
+	(rect 992 384 1168 400)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
 	(text "Overflow" (rect 90 0 134 12)(font "Arial" ))
 	(pt 0 8)
@@ -101,7 +101,7 @@ applicable agreement for further details.
 )
 (pin
 	(output)
-	(rect 1024 408 1200 424)
+	(rect 992 408 1168 424)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
 	(text "Carry_out" (rect 90 0 139 12)(font "Arial" ))
 	(pt 0 8)
@@ -776,10 +776,6 @@ applicable agreement for further details.
 	(pt 376 352)
 )
 (connector
-	(pt 432 48)
-	(pt 432 320)
-)
-(connector
 	(pt 432 320)
 	(pt 696 320)
 )
@@ -843,21 +839,6 @@ applicable agreement for further details.
 	(bus)
 )
 (connector
-	(pt 368 192)
-	(pt 368 104)
-	(bus)
-)
-(connector
-	(pt 368 104)
-	(pt 880 104)
-	(bus)
-)
-(connector
-	(pt 912 352)
-	(pt 984 352)
-	(bus)
-)
-(connector
 	(pt 912 336)
 	(pt 984 336)
 	(bus)
@@ -888,17 +869,7 @@ applicable agreement for further details.
 	(bus)
 )
 (connector
-	(pt 880 80)
-	(pt 880 104)
-	(bus)
-)
-(connector
 	(pt 1016 224)
-	(pt 880 224)
-	(bus)
-)
-(connector
-	(pt 880 104)
 	(pt 880 224)
 	(bus)
 )
@@ -1007,31 +978,6 @@ applicable agreement for further details.
 (connector
 	(pt 1024 80)
 	(pt 928 80)
-	(bus)
-)
-(connector
-	(pt 928 80)
-	(pt 880 80)
-	(bus)
-)
-(connector
-	(text "<<__$DEF_ALIAS2477>>" (rect 959 376 1082 388)(font "Arial" )(invisible))
-	(pt 984 392)
-	(pt 1024 392)
-)
-(connector
-	(text "<<__$DEF_ALIAS2479>>" (rect 959 400 1082 412)(font "Arial" )(invisible))
-	(pt 984 416)
-	(pt 1024 416)
-)
-(connector
-	(pt 984 352)
-	(pt 984 392)
-	(bus)
-)
-(connector
-	(pt 984 392)
-	(pt 984 416)
 	(bus)
 )
 (connector
@@ -1209,8 +1155,56 @@ applicable agreement for further details.
 	(pt 1528 480)
 	(bus)
 )
+(connector
+	(pt 912 352)
+	(pt 960 352)
+	(bus)
+)
+(connector
+	(text "<<__$DEF_ALIAS2477>>" (rect 903 376 1026 388)(font "Arial" )(invisible))
+	(pt 960 392)
+	(pt 992 392)
+)
+(connector
+	(text "<<__$DEF_ALIAS2479>>" (rect 903 400 1026 412)(font "Arial" )(invisible))
+	(pt 960 416)
+	(pt 992 416)
+)
+(connector
+	(pt 960 352)
+	(pt 960 392)
+	(bus)
+)
+(connector
+	(pt 960 392)
+	(pt 960 416)
+	(bus)
+)
+(connector
+	(pt 880 80)
+	(pt 880 224)
+	(bus)
+)
+(connector
+	(pt 880 80)
+	(pt 928 80)
+	(bus)
+)
+(connector
+	(pt 368 80)
+	(pt 368 192)
+	(bus)
+)
+(connector
+	(pt 432 48)
+	(pt 432 320)
+)
+(connector
+	(pt 368 80)
+	(pt 880 80)
+	(bus)
+)
 (junction (pt 104 48))
-(junction (pt 880 104))
 (junction (pt 256 48))
 (junction (pt 1280 -144))
 (junction (pt 1280 -32))
@@ -1218,9 +1212,10 @@ applicable agreement for further details.
 (junction (pt 1280 256))
 (junction (pt 1280 368))
 (junction (pt 928 80))
-(junction (pt 984 392))
 (junction (pt 1256 0))
 (junction (pt 1256 -112))
 (junction (pt 1256 112))
 (junction (pt 1256 288))
 (junction (pt 1256 400))
+(junction (pt 960 392))
+(junction (pt 880 80))

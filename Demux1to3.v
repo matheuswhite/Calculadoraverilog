@@ -9,7 +9,7 @@ module Demux1to3(In, Sel, A, B, C);
 	not n2(SelNot2, Sel[1]);
 	not n3(SelNot3, Sel[2]);
 	
-	And8Bits a1(In, {SelNot1, SelNot2, Sel[2]}, A);
-	And8Bits a2(In, {SelNot1, Sel[1], SelNot3}, B);
-	And8Bits a3(In, {SelNot1, Sel[1], Sel[2]}, C);
+	And8Bits a1(In, {SelNot3, SelNot2, Sel[0]}, A);
+	And8Bits a2(In, {SelNot3, Sel[1], SelNot1}, B);
+	And8Bits a3(In, {SelNot3, Sel[1], Sel[0]}, C);
 endmodule

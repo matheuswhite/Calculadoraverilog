@@ -5,11 +5,15 @@ module Demux1to3(In, Sel, A, B, C);
 	
 	wire SelNot1, SelNot2, SelNot3;
 	
+	wire [7:0] temp, temp2;
+	
 	not n1(SelNot1, Sel[0]);
 	not n2(SelNot2, Sel[1]);
 	not n3(SelNot3, Sel[2]);
 	
-	And8Bits a1(In, {SelNot3, SelNot2, Sel[0]}, A);
+	And8Bits a1(In, {SelNot3, SelNot2, Sel[0]}, temp);
+	And8Bits a4(In, {Sel[2], SelNot2, Sel[0]}, temp2);
+	Or8Bits o1(temp, temp2, A);
 	And8Bits a2(In, {SelNot3, Sel[1], SelNot1}, B);
 	And8Bits a3(In, {SelNot3, Sel[1], Sel[0]}, C);
 endmodule

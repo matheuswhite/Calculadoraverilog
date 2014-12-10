@@ -1,3 +1,5 @@
+//Não estou usando este
+
 module Calculator(clock, Switchs, Enter, Clear, SSegments1, SSegments2, SSegments3, SSegments4, SSegments5, SSegments6, Leds);
 	input [11:0] Switchs;
 	input Enter, Clear, clock;

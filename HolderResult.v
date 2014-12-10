@@ -6,7 +6,7 @@ module HolderResult(clock, A, Sel, Out);
 	
 	reg [7:0] Out, reg1, reg2 = 0;
 	
-	wire wSel, wSel2, SelNot3, SelNot2, SelNot1;
+	wire wSel, wSel2, wSel3, SelNot3, SelNot2, SelNot1;
 	
 	not n1(SelNot3, Sel[2]);
 	not n2(SelNot1, Sel[0]);
@@ -14,6 +14,7 @@ module HolderResult(clock, A, Sel, Out);
 	
 	and a1(wSel, SelNot3, Sel[1], Sel[0]);
 	and a2(wSel2, Sel[2], SelNot2, SelNot1);
+	and a3(wSel3, Sel[2], SelNot2, Sel[0]);
 	
 	always @(posedge clock) begin
 		reg1 = reg2; 
@@ -23,7 +24,7 @@ module HolderResult(clock, A, Sel, Out);
 			if(reg1 == reg2)
 				Out <= A;
 		end
-		else if(wSel2)
+		else if(wSel2 || wSel3)
 			Out <= 0;
 	end
 endmodule

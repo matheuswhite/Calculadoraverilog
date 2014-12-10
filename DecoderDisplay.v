@@ -18,14 +18,18 @@ module DecoderDisplay(clock, Zero, Overflow, Carry_out, Units, Tens, Hundreds, D
 	assign Display2 = {rHundreds[1],wTens};
 	
 	always @(posedge clock) begin
-		if(Overflow)
-			Leds[0] <= 1'b1;
-		else if(Overflow == 0)
-			Leds[0] <= 1'b0;
-		if(Carry_out)
-			Leds[1] <= 1'b1;
-		else if(Carry_out == 0)
-			Leds[1] <= 1'b0;
+		if(Units == 0 && Tens == 0 && Hundreds == 0)
+			Leds <= 0;
+		else begin
+			if(Overflow)
+				Leds[0] <= 1'b1;
+			else if(Overflow == 0)
+				Leds[0] <= 1'b0;
+			if(Carry_out)
+				Leds[1] <= 1'b1;
+			else if(Carry_out == 0)
+				Leds[1] <= 1'b0;
+		end
 		
 		case (Hundreds)
 			2'b01: rHundreds <= 2'b01;
